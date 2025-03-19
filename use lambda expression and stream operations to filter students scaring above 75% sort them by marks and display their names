@@ -1,0 +1,46 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Student {
+    String name;
+    double marks;
+
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', marks=" + marks + "}";
+    }
+}
+
+public class StudentFilterLambda {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Alice", 85),
+            new Student("Bob", 72),
+            new Student("Charlie", 90),
+            new Student("David", 65),
+            new Student("Eve", 78)
+        );
+
+        // Filter students scoring above 75% and sort by marks
+        List<String> topStudents = students.stream()
+            .filter(s -> s.marks > 75)
+            .sorted((s1, s2) -> Double.compare(s2.marks, s1.marks))
+            .map(s -> s.name)
+            .collect(Collectors.toList());
+
+        System.out.println("Students scoring above 75%, sorted by marks:");
+        topStudents.forEach(System.out::println);
+    }
+}
+output:-
+
+C:\Users\dell\Desktop\java>cd "c:\Users\dell\Desktop\java\" && javac StudentFilterLambda.java && java StudentFilterLambda
+Students scoring above 75%, sorted by marks:
+Charlie
+Alice
+Eve
